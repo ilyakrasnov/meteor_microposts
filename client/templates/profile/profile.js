@@ -1,26 +1,28 @@
 Template.profile.events({
   "submit .edit-profile": function(event){
-    var file =  $('#profileImage').get(0).files[0];
+    var file = $('#profileImage').get(0).files[0];
 
     if(file){
       fsFile = new FS.File(file);
 
       ProfileImages.insert(fsFile, function(err, result){
-         if(err){
-           throw new Meteor.error(err);
-         } else {
-           var imageLoc = '/cfs/files/ProfileImages/' + result._id;
+        if(err){
+          throw new Meteor.Error(err);
+        } else {
 
-           UserImages.insert({
+          var imageLoc = '/cfs/files/ProfileImages/'+result._id;
+
+          UserImages.insert({
             userId: Meteor.userId(),
-            userName: Meteor.user().username,
+            username: Meteor.user().username,
             image: imageLoc
-           });
+          });
 
-           Router.go('/');
-         }
+          Router.go('/');
+        }
       });
     }
+
     return false;
   }
 });
