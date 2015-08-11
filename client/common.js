@@ -1,3 +1,6 @@
+Meteor.subscribe('posts');
+Meteor.subscribe('ProfileImages');
+Meteor.subscribe('UserImages');
 
 Meteor.startup(function () {
   AccountsEntry.config({
